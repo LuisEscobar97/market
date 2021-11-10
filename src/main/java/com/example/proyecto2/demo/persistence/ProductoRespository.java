@@ -1,36 +1,53 @@
 package com.example.proyecto2.demo.persistence;
 
+import com.example.proyecto2.demo.domain.Product;
+import com.example.proyecto2.demo.domain.repository.ProductRepository;
 import com.example.proyecto2.demo.persistence.crud.ProductoCrudRespository;
 import com.example.proyecto2.demo.persistence.entity.Producto;
+import com.example.proyecto2.demo.persistence.mapper.ProductMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ProductoRespository {
+public class ProductoRespository implements ProductRepository {
     private ProductoCrudRespository productoCrudRespository;
+    private ProductMapper productMapper;
 
-    public List<Producto> getAll(){
-        return (List<Producto>) productoCrudRespository.findAll();
-    }
+    @Override
+    public List<Product> getAll(){
 
-    public List<Producto> getByCategoria(int idcategoria){
-        return productoCrudRespository.findByIdCategoria(idcategoria);
-    }
-
-    public Optional<List<Producto>> getByStock(int catidadStock,boolean estado){
-        return productoCrudRespository.findByCantidadStockLessThanAndEstado(catidadStock,estado);
-    }
-    public Optional<Producto> getProducto(int idProducto){
-            return  productoCrudRespository.findById(idProducto);
+    List<Producto> productos=(List<Producto>) productoCrudRespository.findAll();
+        return productMapper.toOroducts(productos);
     }
 
-    public Producto saveProducto(Producto producto){
-        return productoCrudRespository.save(producto);
+    @Override
+    public Optional<List<Product>> getByCategory(int categoryId) {
+        List<Producto>productos=productoCrudRespository.findByIdCategoria(categoryId);
+        return Optional.of(productMapper.toOroducts(productos));
     }
 
-    public void deleteProducto(int idProducto){
-        productoCrudRespository.deleteById(idProducto);
+    @Override
+    public Optional<List<Product>> getScareseProducts(int quantity) {
+        Optional<List<Producto>>products=productoCrudRespository.findByCantidadStockLessThanAndEstado(quantity,true);
+        return products.map(productos -> productMapper.toOroducts(productos));
     }
+
+    @Override
+    public Optional<Product> getProduct(int productId) {
+        return productoCrudRespository.findById(productId).map(producto -> productMapper.toProduct(producto));
+    }
+
+    @Override
+    public Product save(Product product) {
+        Producto producto=productMapper.toProdcto(product);
+        return productMapper.toProduct(productoCrudRespository.save(producto));
+    }
+
+    @Override
+    public void delete(int productId) {
+        productoCrudRespository.deleteById(productId);
+    }
+
 }
