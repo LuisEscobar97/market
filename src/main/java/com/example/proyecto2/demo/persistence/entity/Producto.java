@@ -33,6 +33,8 @@ public class Producto {
     @JoinColumn(name = "id_categoria",insertable = false,updatable = false)
     private Categoria categoria;
 
+    public Producto() {
+    }
 
     public Producto(Integer idProducto, String nombre, Integer idCategoria, String codigoBarras, Double precioVenta, Integer cantidadStock, Boolean estado) {
         this.idProducto = idProducto;
@@ -111,5 +113,13 @@ public class Producto {
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }

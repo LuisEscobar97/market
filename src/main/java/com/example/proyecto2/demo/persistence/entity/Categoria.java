@@ -12,17 +12,20 @@ public class Categoria {
     @Column(name = "id_categoria")
     private Integer idCategoria;
 
-    private String descriocion;
+    private String descripcion;
 
     private Boolean estado;
 
     @OneToMany(mappedBy = "categoria")
     private List<Producto>productos;
 
-    public Categoria(Integer idCategoria, String descriocion, Boolean estado) {
+    public Categoria(Integer idCategoria, String descripcion, Boolean estado) {
         this.idCategoria = idCategoria;
-        this.descriocion = descriocion;
+        this.descripcion = descripcion;
         this.estado = estado;
+    }
+
+    public Categoria() {
     }
 
     public Integer getIdCategoria() {
@@ -33,12 +36,12 @@ public class Categoria {
         this.idCategoria = idCategoria;
     }
 
-    public String getDescriocion() {
-        return descriocion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescriocion(String descriocion) {
-        this.descriocion = descriocion;
+    public void setDescripcion(String descriocion) {
+        this.descripcion = descriocion;
     }
 
     public Boolean getEstado() {
@@ -49,11 +52,19 @@ public class Categoria {
         this.estado = estado;
     }
 
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+
     @Override
     public String toString() {
         return "Categoria{" +
                 "idCategoria=" + idCategoria +
-                ", descriocion='" + descriocion + '\'' +
+                ", descriocion='" + descripcion + '\'' +
                 ", estado=" + estado +
                 '}';
     }
