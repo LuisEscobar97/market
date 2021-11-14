@@ -30,7 +30,8 @@ public class ComprasProducto {
         this.estado = estado;
     }
 
-
+    public ComprasProducto() {
+    }
 
     public ComprasProductoPK getId() {
         return id;
