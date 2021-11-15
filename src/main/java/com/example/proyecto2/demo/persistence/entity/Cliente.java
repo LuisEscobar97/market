@@ -33,6 +33,9 @@ public class Cliente {
         this.correoElectronico = correoElectronico;
     }
 
+    public Cliente() {
+    }
+
     public String getId() {
         return id;
     }

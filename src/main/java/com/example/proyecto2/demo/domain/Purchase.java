@@ -10,11 +10,11 @@ public class Purchase {
     private LocalDateTime date;
     private  String paymentMethod;
     private String comment;
-    private boolean state;
+    private String state;
 
     private List<PurchaseItem> purchaseItems;
 
-    public Purchase(int purchaseId, String clientId, LocalDateTime date, String paymentMethod, String comment, boolean state, List<PurchaseItem> purchaseItems) {
+    public Purchase(int purchaseId, String clientId, LocalDateTime date, String paymentMethod, String comment, String state, List<PurchaseItem> purchaseItems) {
         this.purchaseId = purchaseId;
         this.clientId = clientId;
         this.date = date;
@@ -26,8 +26,6 @@ public class Purchase {
 
     public Purchase() {
     }
-
-
 
     public int getPurchaseId() {
         return purchaseId;
@@ -69,11 +67,11 @@ public class Purchase {
         this.comment = comment;
     }
 
-    public boolean isState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(boolean state) {
+    public void setState(String state) {
         this.state = state;
     }
 

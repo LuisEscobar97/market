@@ -9,7 +9,7 @@ import java.util.List;
 public class Compra {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_compra")
     private Integer idCompra;
 
@@ -28,7 +28,7 @@ public class Compra {
     @JoinColumn(name ="id_cliente",insertable = false,updatable = false )
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "producto")
+    @OneToMany(mappedBy = "compra", cascade = {CascadeType.ALL})
     private List<ComprasProducto>productos;
 
     public Compra(Integer idCompra, String idCliente, LocalDateTime fecha, String medioPago, String comentario, String estado) {
@@ -38,6 +38,10 @@ public class Compra {
         this.medioPago = medioPago;
         this.comentario = comentario;
         this.estado = estado;
+
+    }
+
+    public Compra() {
     }
 
     public Integer getIdCompra() {
@@ -86,5 +90,21 @@ public class Compra {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<ComprasProducto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<ComprasProducto> productos) {
+        this.productos = productos;
     }
 }
